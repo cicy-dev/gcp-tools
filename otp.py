@@ -19,7 +19,11 @@ def install_pyotp():
         import pyotp
     except ImportError:
         print("Installing pyotp...")
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "pyotp"])
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "pyotp"])
+        except subprocess.CalledProcessError:
+            print("Pip install failed, trying system package...")
+            subprocess.check_call(["sudo", "apt", "install", "-y", "python3-pyotp"])
         import pyotp
     return pyotp
 
