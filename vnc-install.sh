@@ -131,8 +131,8 @@ export XMODIFIERS=@im=fcitx5
 fcitx5 -d &
 
 # Start Chrome with remote debugging
-if [ -f "$HOME/tools/chrome.sh" ]; then
-    bash "$HOME/tools/chrome.sh" start &
+if [ -f "$HOME/Desktop/tools/chrome.sh" ]; then
+    bash "$HOME/Desktop/tools/chrome.sh" start &
 fi
 
 exec startxfce4
@@ -144,7 +144,7 @@ EOF
 
 start_services() {
     print_info "Starting VNC and noVNC services..."
-    ~/tools/vnc-start.sh
+    ~/Desktop/Desktop/tools/vnc-start.sh
 }
 
 show_connection_info() {

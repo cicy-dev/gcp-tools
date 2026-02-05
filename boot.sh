@@ -14,7 +14,7 @@ log "开始启动脚本..."
 log "配置环境文件..."
 grep -qxF "source ~/env.sh" ~/.bashrc || echo "source ~/env.sh" >> ~/.bashrc
 touch ~/env.sh
-chmod +x ~/tools/*.sh
+chmod +x ~/Desktop/tools/*.sh
 chmod +x ~/env.sh
 source ~/.bashrc
 log "环境文件配置完成"
@@ -22,15 +22,16 @@ log "环境文件配置完成"
 
 # 运行 cloudflared 隧道脚本
 log "配置 cloudflared 隧道..."
-if [ -f ~/tools/cloudflared-tunnel.sh ]; then
-    ~/tools/cloudflared-tunnel.sh
+if [ -f ~/Desktop/tools/cloudflared-tunnel.sh ]; then
+    export CF_TUNNEL_NO_RESTART=1
+    ~/Desktop/tools/cloudflared-tunnel.sh
     if [ $? -eq 0 ]; then
         log "cloudflared 隧道配置完成"
     else
         log "警告: cloudflared 隧道配置失败"
     fi
 else
-    log "错误: ~/tools/cloudflared-tunnel.sh 文件不存在"
+    log "错误: ~/Desktop/tools/cloudflared-tunnel.sh 文件不存在"
 fi
 
 # 检查并安装 Node.js 和 npm (最新版本)
@@ -55,7 +56,7 @@ fi
 log "npm 版本: $(npm --version)"
 
 # 检查并安装 AI CLI 工具
-# log "检查 AI CLI 工具..."
+log "检查 AI CLI 工具..."
 
 # # 使用 command -v 检查命令是否存在，比 npm list 更快更可靠
 if ! command -v gemini >/dev/null 2>&1; then
@@ -86,16 +87,16 @@ log "@google/gemini-cli 当前版本: ${CURRENT_VERSION:-未知}"
 #     log "@openai/codex 已安装"
 # fi
 
-# if ! npm list -g @anthropic-ai/claude-code >/dev/null 2>&1; then
-#     log "安装 @anthropic-ai/claude-code..."
-#     npm install -g @anthropic-ai/claude-code >> ~/logs/npm_install.log 2>&1
-#     log "@anthropic-ai/claude-code 安装完成"
-#     log "@anthropic-ai/claude-code 版本: $(npx @anthropic-ai/claude-code --version 2>/dev/null)"
-#     log "claude 版本: $(npx @anthropic-ai/claude-code claude --version 2>/dev/null)"
-#     # 创建 claude 命令别名    echo "#!/bin/bash" > ~/.local/bin/claude && echo "npx @anthropic-ai/claude-code claude "$@"" >> ~/.local/bin/claude && chmod +x ~/.local/bin/claude
-# else
-#     log "@anthropic-ai/claude-code 已安装"
-# fi
+if ! npm list -g @anthropic-ai/claude-code >/dev/null 2>&1; then
+    log "安装 @anthropic-ai/claude-code..."
+    sudo npm install -g @anthropic-ai/claude-code >> ~/logs/npm_install.log 2>&1
+    log "@anthropic-ai/claude-code 安装完成"
+    log "@anthropic-ai/claude-code 版本: $(npx @anthropic-ai/claude-code --version 2>/dev/null)"
+    log "claude 版本: $(npx @anthropic-ai/claude-code claude --version 2>/dev/null)"
+    # 创建 claude 命令别名    echo "#!/bin/bash" > ~/.local/bin/claude && echo "npx @anthropic-ai/claude-code claude "$@"" >> ~/.local/bin/claude && chmod +x ~/.local/bin/claude
+else
+    log "@anthropic-ai/claude-code 已安装"
+fi
 
 # # 配置 Claude Code 设置
 # if [ ! -e ~/.claude/settings.json ]; then
@@ -127,13 +128,13 @@ fi
 
 # cd ~/
 
-# ~/tools/jupyter.sh
+# ~/Desktop/tools/jupyter.sh
 
 # 检查并安装 VNC
 log "检查 VNC..."
 if ! command -v tigervncserver >/dev/null 2>&1; then
     log "安装 VNC..."
-    ~/tools/vnc-install.sh >> ~/logs/vnc_install.log 2>&1
+    ~/Desktop/tools/vnc-install.sh >> ~/logs/vnc_install.log 2>&1
     log "VNC 安装完成"
 else
     log "VNC 已安装"
@@ -143,7 +144,7 @@ fi
 #log "检查 Firefox..."
 #if ! command -v firefox-esr >/dev/null 2>&1; then
 #    log "安装 Firefox..."
-#    ~/tools/firefox.sh install >> ~/logs/firefox_install.log 2>&1
+#    ~/Desktop/tools/firefox.sh install >> ~/logs/firefox_install.log 2>&1
 #    log "Firefox 安装完成"
 #else
 #    log "Firefox 已安装"
@@ -153,7 +154,7 @@ fi
 log "检查 Chrome..."
 if ! command -v google-chrome >/dev/null 2>&1; then
     log "安装 Chrome..."
-    ~/tools/chrome.sh install >> ~/logs/chrome_install.log 2>&1
+    ~/Desktop/tools/chrome.sh install >> ~/logs/chrome_install.log 2>&1
     log "Chrome 安装完成"
 else
     log "Chrome 已安装"
@@ -186,17 +187,7 @@ cd ~/
 log "检查 code-server..."
 if ! command -v code-server >/dev/null 2>&1; then
     log "安装 code-server..."
-    # 使用官方一行安装脚本并将输出记录到日志
     curl -fsSL https://code-server.dev/install.sh | sh >> ~/logs/code_server_install.log 2>&1
-    if [ $? -eq 0 ]; then
-        # 尝试显示已安装版本（如果可用）
-        CS_VER=$(code-server --version 2>/dev/null || echo "未知")
-        log "code-server 安装完成，版本: ${CS_VER}"
-    else
-        log "错误: code-server 安装失败，请查看 ~/logs/code_server_install.log"
-    fi
-else
-    log "code-server 已安装，版本: $(code-server --version 2>/dev/null || echo '未知')"
 fi
 
 echo "⚙️ 正在启动服务..."

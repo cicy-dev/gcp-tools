@@ -4,7 +4,7 @@
 
 Check all services and system status:
 ```bash
-bash ~/tools/status.sh
+bash ~/Desktop/tools/status.sh
 ```
 
 ## Service Management Scripts
@@ -13,10 +13,10 @@ bash ~/tools/status.sh
 Manage Google Chrome with remote debugging capabilities.
 
 ```bash
-bash ~/tools/chrome.sh install   # Install Chrome
-bash ~/tools/chrome.sh start     # Start Chrome with debugging
-bash ~/tools/chrome.sh stop      # Stop Chrome
-bash ~/tools/chrome.sh status    # Check Chrome status
+bash ~/Desktop/tools/chrome.sh install   # Install Chrome
+bash ~/Desktop/tools/chrome.sh start     # Start Chrome with debugging
+bash ~/Desktop/tools/chrome.sh stop      # Stop Chrome
+bash ~/Desktop/tools/chrome.sh status    # Check Chrome status
 ```
 
 Features:
@@ -28,7 +28,7 @@ Features:
 Start VNC server and noVNC web interface.
 
 ```bash
-bash ~/tools/vnc-start.sh
+bash ~/Desktop/tools/vnc-start.sh
 ```
 
 Access:
@@ -39,7 +39,7 @@ Access:
 Manage Cloudflare tunnel for external access.
 
 ```bash
-bash ~/tools/cloudflared-tunnel.sh
+bash ~/Desktop/tools/cloudflared-tunnel.sh
 ```
 
 Requires: CF_TUNNEL environment variable
@@ -48,7 +48,7 @@ Requires: CF_TUNNEL environment variable
 Comprehensive system and service health check.
 
 ```bash
-bash ~/tools/status.sh
+bash ~/Desktop/tools/status.sh
 ```
 
 Checks:
@@ -71,8 +71,8 @@ Checks:
 ## Quick Diagnostics
 
 If status.sh reports errors, follow the provided recommendations:
-- Chrome not running: `bash ~/tools/chrome.sh start`
-- VNC not running: `bash ~/tools/vnc-start.sh`
+- Chrome not running: `bash ~/Desktop/tools/chrome.sh start`
+- VNC not running: `bash ~/Desktop/tools/vnc-start.sh`
 - Git missing: `sudo apt install -y git`
 - Docker missing: `curl -fsSL https://get.docker.com | sh`
 

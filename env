@@ -1,0 +1,23 @@
+
+#!/bin/bash
+
+# 环境变量配置
+export PATH=$HOME/.opencode/bin:$PATH
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/Desktop/tools:$PATH"
+export DISPLAY=:1
+
+# 别名配置
+alias oc="$HOME/.opencode/bin/opencode"
+alias opencode="$HOME/.opencode/bin/opencode"
+
+alias ge="gemini"
+# Kiro CLI 别名
+alias k="kiro-cli"
+alias cc="claude ‘请用中文跟我交流：’"
+
+alias ge="gemini"
+alias tx="tmux"
+alias tl="tmux ls"
+alias sb="source ~/.bashrc"
+
