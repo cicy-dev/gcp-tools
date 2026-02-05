@@ -169,6 +169,24 @@ fi
 #     log "opencode 已安装"
 # fi
 
+cd ~/
+# 检查并安装 code-server
+log "检查 code-server..."
+if ! command -v code-server >/dev/null 2>&1; then
+    log "安装 code-server..."
+    # 使用官方一行安装脚本并将输出记录到日志
+    curl -fsSL https://code-server.dev/install.sh | sh >> ~/logs/code_server_install.log 2>&1
+    if [ $? -eq 0 ]; then
+        # 尝试显示已安装版本（如果可用）
+        CS_VER=$(code-server --version 2>/dev/null || echo "未知")
+        log "code-server 安装完成，版本: ${CS_VER}"
+    else
+        log "错误: code-server 安装失败，请查看 ~/logs/code_server_install.log"
+    fi
+else
+    log "code-server 已安装，版本: $(code-server --version 2>/dev/null || echo '未知')"
+fi
+
 log "环境配置完成！"
 log "日志文件位置："
 log "  - 主日志: ~/logs/boot.log"
