@@ -73,9 +73,9 @@ else
     log "@google/gemini-cli 已存在，跳过安装"
 fi
 
-# # 统一显示版本号，确保环境可用
-# CURRENT_VERSION=$(gemini --version 2>/dev/null || npx @google/gemini --version 2>/dev/null)
-# log "@google/gemini-cli 当前版本: ${CURRENT_VERSION:-未知}"
+# 统一显示版本号，确保环境可用
+CURRENT_VERSION=$(gemini --version 2>/dev/null || npx @google/gemini --version 2>/dev/null)
+log "@google/gemini-cli 当前版本: ${CURRENT_VERSION:-未知}"
 
 # if ! npm list -g @openai/codex >/dev/null 2>&1; then
 #     log "安装 @openai/codex@latest..."
