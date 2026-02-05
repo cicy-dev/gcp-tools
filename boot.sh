@@ -187,6 +187,15 @@ else
     log "code-server 已安装，版本: $(code-server --version 2>/dev/null || echo '未知')"
 fi
 
+echo "⚙️ 正在启动服务..."
+sudo systemctl enable --now code-server@$USER
+
+echo "------------------------------------------------"
+echo "✅ 安装成功！"
+echo "配置文件路径: ~/.config/code-server/config.yaml"
+echo "请查看该文件以获取访问密码。"
+echo "------------------------------------------------"
+
 log "环境配置完成！"
 log "日志文件位置："
 log "  - 主日志: ~/logs/boot.log"
