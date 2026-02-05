@@ -58,20 +58,20 @@ log "npm 版本: $(npm --version)"
 # log "检查 AI CLI 工具..."
 
 # # 使用 command -v 检查命令是否存在，比 npm list 更快更可靠
-# if ! command -v gemini >/dev/null 2>&1; then
-#     log "未检测到 gemini，准备安装 @google/gemini-cli..."
+if ! command -v gemini >/dev/null 2>&1; then
+    log "未检测到 gemini，准备安装 @google/gemini-cli..."
     
-#     # 尝试安装，并捕获可能的错误
-#     if sudo npm install -g @google/gemini-cli >> ~/logs/npm_install.log 2>&1; then
-#         log "@google/gemini-cli 安装成功"
-#     else
-#         log "错误: @google/gemini-cli 安装失败！请检查 ~/logs/npm_install.log"
-#         # 根据需求决定是否退出脚本
-#         # exit 1 
-#     fi
-# else
-#     log "@google/gemini-cli 已存在，跳过安装"
-# fi
+    # 尝试安装，并捕获可能的错误
+    if sudo npm install -g @google/gemini-cli >> ~/logs/npm_install.log 2>&1; then
+        log "@google/gemini-cli 安装成功"
+    else
+        log "错误: @google/gemini-cli 安装失败！请检查 ~/logs/npm_install.log"
+        # 根据需求决定是否退出脚本
+        # exit 1 
+    fi
+else
+    log "@google/gemini-cli 已存在，跳过安装"
+fi
 
 # # 统一显示版本号，确保环境可用
 # CURRENT_VERSION=$(gemini --version 2>/dev/null || npx @google/gemini --version 2>/dev/null)
