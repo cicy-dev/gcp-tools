@@ -159,15 +159,27 @@ else
     log "Chrome 已安装"
 fi
 
-# # 安装 opencode
-# log "检查 opencode..."
-# if [ ! -e ~/.opencode/bin/opencode ]; then
-#     log "安装 opencode..."
-#     curl -fsSL https://opencode.ai/install | bash 
-#     log "opencode 安装完成"
-# else
-#     log "opencode 已安装"
-# fi
+
+# 检查并安装 kiro-cli
+log "检查 kiro-cli..."
+if ! command -v kiro-cli >/dev/null 2>&1; then
+    log "安装 kiro-cli..."
+    curl -fsSL https://cli.kiro.dev/install | bash >> ~/logs/kiro_install.log 2>&1
+    log "kiro-cli 安装完成"
+    log "kiro-cli 版本: $(~/.local/bin/kiro-cli --version 2>/dev/null)"
+else
+    log "kiro-cli 已安装"
+fi
+
+# 安装 opencode
+log "检查 opencode..."
+if [ ! -e ~/.opencode/bin/opencode ]; then
+    log "安装 opencode..."
+    curl -fsSL https://opencode.ai/install | bash 
+    log "opencode 安装完成"
+else
+    log "opencode 已安装"
+fi
 
 cd ~/
 # 检查并安装 code-server
@@ -203,15 +215,3 @@ log "  - 隧道日志: ~/logs/tunnel.log"
 log "  - JupyterLab 日志: ~/logs/jupyter_lab.log"
 log "  - Node.js 安装日志: ~/logs/node_install.log"
 log "  - npm 包安装日志: ~/logs/npm_install.log"
-
-# # 检查并安装 kiro-cli
-# log "检查 kiro-cli..."
-# if ! command -v kiro-cli >/dev/null 2>&1; then
-#     log "安装 kiro-cli..."
-#     curl -fsSL https://cli.kiro.dev/install | bash >> ~/logs/kiro_install.log 2>&1
-#     log "kiro-cli 安装完成"
-#     log "kiro-cli 版本: $(~/.local/bin/kiro-cli --version 2>/dev/null)"
-#     # 添加 kiro-cli 到 PATH    grep -qxF "export PATH="/Users/ton/.local/bin:/Users/ton/.opencode/bin:/Users/ton/.antigravity/antigravity/bin:/usr/local/opt/openjdk@17/bin:/Users/ton/.nvm/versions/node/v20.19.0/bin:/Users/ton/Desktop/Android/sdk/emulator:/Users/ton/Desktop/Android/sdk/tools:/Users/ton/Desktop/Android/sdk/tools/bin:/Users/ton/Desktop/Android/sdk/platform-tools:/Applications/Docker.app/Contents/Resources/bin:/usr/local/go/bin:/usr/local/bin:/Users/ton/bin:/Users/ton/.local/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Applications/VMware Fusion.app/Contents/Public:/usr/local/go/bin:/Users/ton/.cargo/bin:/Users/ton/.local/bin:/Users/ton/Desktop/projects/web3-explorer/apps/desktop/out/Web3ExplorerBeta-darwin-x64"" ~/.bashrc || echo "export PATH="/Users/ton/.local/bin:/Users/ton/.opencode/bin:/Users/ton/.antigravity/antigravity/bin:/usr/local/opt/openjdk@17/bin:/Users/ton/.nvm/versions/node/v20.19.0/bin:/Users/ton/Desktop/Android/sdk/emulator:/Users/ton/Desktop/Android/sdk/tools:/Users/ton/Desktop/Android/sdk/tools/bin:/Users/ton/Desktop/Android/sdk/platform-tools:/Applications/Docker.app/Contents/Resources/bin:/usr/local/go/bin:/usr/local/bin:/Users/ton/bin:/Users/ton/.local/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Applications/VMware Fusion.app/Contents/Public:/usr/local/go/bin:/Users/ton/.cargo/bin:/Users/ton/.local/bin:/Users/ton/Desktop/projects/web3-explorer/apps/desktop/out/Web3ExplorerBeta-darwin-x64"" >> ~/.bashrc
-# else
-#     log "kiro-cli 已安装"
-# fi
