@@ -48,13 +48,14 @@ if ! command -v npm >/dev/null 2>&1; then
     log "npm 未找到，重新安装 Node.js..."
     curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - >> ~/logs/node_install.log 2>&1
     sudo apt-get install -y nodejs >> ~/logs/node_install.log 2>&1
-    log "npm 安装完成，版本: $(npm --version)"
 else
-    log "npm 已安装，版本: $(npm --version)"
+    log "npm 已安装"
 fi
 
+log "npm 版本: $(npm --version)"
+
 # 检查并安装 AI CLI 工具
-log "检查 AI CLI 工具..."
+# log "检查 AI CLI 工具..."
 
 # # 使用 command -v 检查命令是否存在，比 npm list 更快更可靠
 # if ! command -v gemini >/dev/null 2>&1; then
