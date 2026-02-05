@@ -62,7 +62,7 @@ log "npm 版本: $(npm --version)"
 #     log "未检测到 gemini，准备安装 @google/gemini-cli..."
     
 #     # 尝试安装，并捕获可能的错误
-#     if npm install -g @google/gemini-cli >> ~/logs/npm_install.log 2>&1; then
+#     if sudo npm install -g @google/gemini-cli >> ~/logs/npm_install.log 2>&1; then
 #         log "@google/gemini-cli 安装成功"
 #     else
 #         log "错误: @google/gemini-cli 安装失败！请检查 ~/logs/npm_install.log"
