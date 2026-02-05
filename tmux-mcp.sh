@@ -13,7 +13,7 @@ API_TOKEN=${TMUX_MCP_TOKEN:-}
 DISPLAY_VAR=${TMUX_MCP_DISPLAY:-${DISPLAY:-:0}}
 PID_FILE="$HOME/logs/tmux-mcp.pid"
 LOG_FILE="$HOME/logs/tmux-mcp.log"
-TOKEN_FILE="$HOME/token.txt"
+TOKEN_FILE="$HOME/tmux-mcp-token.txt"
 
 # 颜色定义
 RED='\033[0;31m'
