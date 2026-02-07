@@ -144,7 +144,7 @@ EOF
 
 start_services() {
     print_info "Starting VNC and noVNC services..."
-    ~/Desktop/Desktop/tools/vnc-start.sh
+    ~/Desktop/tools/vnc-start.sh
 }
 
 show_connection_info() {

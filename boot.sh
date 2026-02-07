@@ -10,12 +10,11 @@ log() {
 
 log "开始启动脚本..."
 
-# 检查并添加 env.sh 到 .bashrc
+# 检查并添加 env 到 .bashrc
 log "配置环境文件..."
-grep -qxF "source ~/env.sh" ~/.bashrc || echo "source ~/env.sh" >> ~/.bashrc
-touch ~/env.sh
+grep -qxF "source ~/env" ~/.bashrc || echo "source ~/env" >> ~/.bashrc
+touch ~/env
 chmod +x ~/Desktop/tools/*.sh
-chmod +x ~/env.sh
 source ~/.bashrc
 log "环境文件配置完成"
 

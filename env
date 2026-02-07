@@ -1,6 +1,4 @@
 
-#!/bin/bash
-
 # 环境变量配置
 export PATH=$HOME/.opencode/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
@@ -14,6 +12,9 @@ alias opencode="$HOME/.opencode/bin/opencode"
 alias ge="gemini"
 # Kiro CLI 别名
 alias k="kiro-cli"
+# alias ll="ls -alh"
+alias myip="curl api.myip.com"
+
 alias cc="claude ‘请用中文跟我交流：’"
 
 alias ge="gemini"
