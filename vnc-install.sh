@@ -122,6 +122,11 @@ create_startup_scripts() {
 unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS
 
+# 核心改进：为每个 Display 启动独立的 D-Bus 会话
+if [ -x /usr/bin/dbus-launch ]; then
+   eval $(dbus-launch --sh-syntax --exit-with-session)
+fi
+
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
@@ -131,8 +136,8 @@ export XMODIFIERS=@im=fcitx5
 fcitx5 -d &
 
 # Start Chrome with remote debugging
-if [ -f "$HOME/Desktop/tools/chrome.sh" ]; then
-    bash "$HOME/Desktop/tools/chrome.sh" start &
+if [ -f "$HOME/tools/chrome.sh" ]; then
+    bash "$HOME/tools/chrome.sh" start &
 fi
 
 exec startxfce4
@@ -144,7 +149,7 @@ EOF
 
 start_services() {
     print_info "Starting VNC and noVNC services..."
-    ~/Desktop/tools/vnc-start.sh
+    ~/tools/vnc-start.sh
 }
 
 show_connection_info() {

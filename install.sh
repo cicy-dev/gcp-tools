@@ -5,7 +5,7 @@ mkdir -p ~/logs
 
 # 日志函数
 log() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a ~/logs/boot.log
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a ~/logs/install.log
 }
 
 log "开始启动脚本..."
@@ -19,40 +19,50 @@ source ~/.bashrc
 log "环境文件配置完成"
 
 
-# 运行 cloudflared 隧道脚本
-log "配置 cloudflared 隧道..."
-if [ -f ~/tools/cloudflared-tunnel.sh ]; then
-    export CF_TUNNEL_NO_RESTART=1
-    ~/tools/cloudflared-tunnel.sh
-    if [ $? -eq 0 ]; then
-        log "cloudflared 隧道配置完成"
-    else
-        log "警告: cloudflared 隧道配置失败"
-    fi
-else
-    log "错误: ~/tools/cloudflared-tunnel.sh 文件不存在"
-fi
+# 1. 安装语言包支持
+sudo apt-get update
+sudo apt-get install -y locales
 
-# 检查并安装 Node.js 和 npm (最新版本)
-log "检查 Node.js..."
-if ! command -v node >/dev/null 2>&1; then
-    log "安装 Node.js 最新版本..."
-    curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - >> ~/logs/node_install.log 2>&1
-    sudo apt-get install -y nodejs >> ~/logs/node_install.log 2>&1
-    log "Node.js 安装完成，版本: $(node --version)"
-else
-    log "Node.js 已安装，版本: $(node --version)"
-fi
+# 2. 生成 en_US.UTF-8
+sudo locale-gen en_US.UTF-8
 
-if ! command -v npm >/dev/null 2>&1; then
-    log "npm 未找到，重新安装 Node.js..."
-    curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - >> ~/logs/node_install.log 2>&1
-    sudo apt-get install -y nodejs >> ~/logs/node_install.log 2>&1
-else
-    log "npm 已安装"
-fi
+# 3. 强制更新系统默认配置
+sudo update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
-log "npm 版本: $(npm --version)"
+# # 运行 cloudflared 隧道脚本
+# log "配置 cloudflared 隧道..."
+# if [ -f ~/tools/cloudflared-tunnel.sh ]; then
+#     export CF_TUNNEL_NO_RESTART=1
+#     ~/tools/cloudflared-tunnel.sh
+#     if [ $? -eq 0 ]; then
+#         log "cloudflared 隧道配置完成"
+#     else
+#         log "警告: cloudflared 隧道配置失败"
+#     fi
+# else
+#     log "错误: ~/tools/cloudflared-tunnel.sh 文件不存在"
+# fi
+
+# # 检查并安装 Node.js 和 npm (最新版本)
+# log "检查 Node.js..."
+# if ! command -v node >/dev/null 2>&1; then
+#     log "安装 Node.js 最新版本..."
+#     curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - >> ~/logs/node_install.log 2>&1
+#     sudo apt-get install -y nodejs >> ~/logs/node_install.log 2>&1
+#     log "Node.js 安装完成，版本: $(node --version)"
+# else
+#     log "Node.js 已安装，版本: $(node --version)"
+# fi
+
+# if ! command -v npm >/dev/null 2>&1; then
+#     log "npm 未找到，重新安装 Node.js..."
+#     curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - >> ~/logs/node_install.log 2>&1
+#     sudo apt-get install -y nodejs >> ~/logs/node_install.log 2>&1
+# else
+#     log "npm 已安装"
+# fi
+
+# log "npm 版本: $(npm --version)"
 
 # 检查并安装 AI CLI 工具
 log "检查 AI CLI 工具..."
@@ -129,15 +139,15 @@ fi
 
 # ~/tools/jupyter.sh
 
-# 检查并安装 VNC
-log "检查 VNC..."
-if ! command -v tigervncserver >/dev/null 2>&1; then
-    log "安装 VNC..."
-    ~/tools/vnc-install.sh >> ~/logs/vnc_install.log 2>&1
-    log "VNC 安装完成"
-else
-    log "VNC 已安装"
-fi
+# # 检查并安装 VNC
+# log "检查 VNC..."
+# if ! command -v tigervncserver >/dev/null 2>&1; then
+#     log "安装 VNC..."
+#     ~/tools/vnc-install.sh >> ~/logs/vnc_install.log 2>&1
+#     log "VNC 安装完成"
+# else
+#     log "VNC 已安装"
+# fi
 
 # 检查并安装 Firefox
 #log "检查 Firefox..."
@@ -149,15 +159,15 @@ fi
 #    log "Firefox 已安装"
 #fi
 
-# 检查并安装 Chrome
-log "检查 Chrome..."
-if ! command -v google-chrome >/dev/null 2>&1; then
-    log "安装 Chrome..."
-    ~/tools/chrome.sh install >> ~/logs/chrome_install.log 2>&1
-    log "Chrome 安装完成"
-else
-    log "Chrome 已安装"
-fi
+# # 检查并安装 Chrome
+# log "检查 Chrome..."
+# if ! command -v google-chrome >/dev/null 2>&1; then
+#     log "安装 Chrome..."
+#     ~/tools/chrome.sh install >> ~/logs/chrome_install.log 2>&1
+#     log "Chrome 安装完成"
+# else
+#     log "Chrome 已安装"
+# fi
 
 
 # 检查并安装 kiro-cli
@@ -181,27 +191,19 @@ else
     log "opencode 已安装"
 fi
 
-cd ~/
-# 检查并安装 code-server
-log "检查 code-server..."
-if ! command -v code-server >/dev/null 2>&1; then
-    log "安装 code-server..."
-    curl -fsSL https://code-server.dev/install.sh | sh >> ~/logs/code_server_install.log 2>&1
-fi
+# cd ~/
+# # 检查并安装 code-server
+# log "检查 code-server..."
+# if ! command -v code-server >/dev/null 2>&1; then
+#     log "安装 code-server..."
+#     curl -fsSL https://code-server.dev/install.sh | sh >> ~/logs/code_server_install.log 2>&1
+# fi
 
-echo "⚙️ 正在启动服务..."
-sudo systemctl enable --now code-server@$USER
+# echo "⚙️ 正在启动服务..."
+# sudo systemctl enable --now code-server@$USER
 
-echo "------------------------------------------------"
-echo "✅ 安装成功！"
-echo "配置文件路径: ~/.config/code-server/config.yaml"
-echo "请查看该文件以获取访问密码。"
-echo "------------------------------------------------"
-
-log "环境配置完成！"
-log "日志文件位置："
-log "  - 主日志: ~/logs/boot.log"
-log "  - 隧道日志: ~/logs/tunnel.log"
-log "  - JupyterLab 日志: ~/logs/jupyter_lab.log"
-log "  - Node.js 安装日志: ~/logs/node_install.log"
-log "  - npm 包安装日志: ~/logs/npm_install.log"
+# echo "------------------------------------------------"
+# echo "✅ 安装成功！"
+# echo "配置文件路径: ~/.config/code-server/config.yaml"
+# echo "请查看该文件以获取访问密码。"
+# echo "------------------------------------------------"

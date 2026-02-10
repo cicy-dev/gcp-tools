@@ -2,7 +2,7 @@
 
 # Chrome 管理脚本
 USER_DATA_DIR="$HOME/data/browser/chrome"
-DEBUG_PORT="${DEBUG_PORT:-9222}"
+DEBUG_PORT="${DEBUG_PORT:-9220}"
 
 case "$1" in
     install)
@@ -42,7 +42,7 @@ Version=1.0
 Type=Application
 Name=Chrome Debug
 Comment=启动 Chrome 浏览器（带远程调试）
-Exec=$HOME/Desktop/tools/chrome.sh start
+Exec=$HOME/tools/chrome.sh start
 Icon=google-chrome
 Terminal=false
 StartupNotify=true

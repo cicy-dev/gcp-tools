@@ -308,12 +308,12 @@ check_directory "$HOME/tools" "工具脚本目录"
 # ============================================
 print_header "管理脚本检查"
 
-check_file "$HOME/Desktop/tools/chrome.sh" "Chrome 管理脚本"
-check_file "$HOME/Desktop/tools/firefox.sh" "Firefox 管理脚本"
-check_file "$HOME/Desktop/tools/vnc-start.sh" "VNC 启动脚本"
-check_file "$HOME/Desktop/tools/cloudflared-tunnel.sh" "Cloudflare Tunnel 脚本"
-check_file "$HOME/Desktop/tools/tmux-mcp.sh" "tmux-mcp 管理脚本"
-check_file "$HOME/Desktop/tools/boot.sh" "启动脚本"
+check_file "$HOME/tools/chrome.sh" "Chrome 管理脚本"
+check_file "$HOME/tools/firefox.sh" "Firefox 管理脚本"
+check_file "$HOME/tools/vnc-start.sh" "VNC 启动脚本"
+check_file "$HOME/tools/cloudflared-tunnel.sh" "Cloudflare Tunnel 脚本"
+check_file "$HOME/tools/tmux-mcp.sh" "tmux-mcp 管理脚本"
+check_file "$HOME/tools/boot.sh" "启动脚本"
 
 # ============================================
 # 10. 进程监控
@@ -359,22 +359,22 @@ if [ $FAILED_CHECKS -gt 0 ]; then
 
     # Chrome 未运行
     if ! pgrep -f "chrome --user-data-dir.*--remote-debugging-port" > /dev/null; then
-        echo -e "  • Chrome 未运行: ${YELLOW}bash ~/Desktop/tools/chrome.sh start${NC}"
+        echo -e "  • Chrome 未运行: ${YELLOW}bash ~/tools/chrome.sh start${NC}"
     fi
 
     # VNC 未运行
     if ! pgrep -f "Xtigervnc" > /dev/null; then
-        echo -e "  • VNC 未运行: ${YELLOW}bash ~/Desktop/tools/vnc-start.sh${NC}"
+        echo -e "  • VNC 未运行: ${YELLOW}bash ~/tools/vnc-start.sh${NC}"
     fi
 
     # Cloudflared 未运行
     if ! pgrep -f "cloudflared tunnel" > /dev/null && [ -n "$CF_TUNNEL" ]; then
-        echo -e "  • Cloudflare Tunnel 未运行: ${YELLOW}bash ~/Desktop/tools/cloudflared-tunnel.sh${NC}"
+        echo -e "  • Cloudflare Tunnel 未运行: ${YELLOW}bash ~/tools/cloudflared-tunnel.sh${NC}"
     fi
 
     # tmux-mcp 未运行
     if ! pgrep -f "mcp-proxy.*8201" > /dev/null; then
-        echo -e "  • tmux-mcp Server 未运行: ${YELLOW}bash ~/Desktop/tools/tmux-mcp.sh daemon${NC}"
+        echo -e "  • tmux-mcp Server 未运行: ${YELLOW}bash ~/tools/tmux-mcp.sh daemon${NC}"
     fi
 
     # 软件未安装提示
@@ -387,7 +387,7 @@ if [ $FAILED_CHECKS -gt 0 ]; then
     fi
 
     if ! command -v firefox-esr &> /dev/null; then
-        echo -e "  • Firefox 未安装 (可选): ${YELLOW}bash ~/Desktop/tools/firefox.sh install${NC}"
+        echo -e "  • Firefox 未安装 (可选): ${YELLOW}bash ~/tools/firefox.sh install${NC}"
     fi
 fi
 
