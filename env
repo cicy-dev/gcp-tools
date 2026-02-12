@@ -18,7 +18,7 @@ alias myip="curl api.myip.com"
 alias cc="claude ‘请用中文跟我交流：’"
 
 alias ge="gemini"
-alias tx="tmux"
+alias tm="tmux"
 alias tl="tmux ls"
 alias sb="source ~/.bashrc"
 
