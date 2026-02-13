@@ -45,7 +45,6 @@ done
 # 克隆项目（如果不存在）
 declare -A REPOS=(
     ["cicy"]="git@github.com:cicy-dev/cicy.git"
-    ["cicy-remote"]="git@github.com:cicy-dev-003/cicy-remote.git"
     ["tmux-mcp"]="git@github.com:cicy-dev/tmux-mcp.git"
     ["tts-bot"]="git@github.com:cicy-dev/tts-bot.git"
     ["electron-mcp"]="git@github.com:cicy-dev/electron-mcp.git"
