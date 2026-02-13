@@ -15,7 +15,7 @@ declare -A LINKS=(
     ["personal"]="$HOME/personal"
     ["tmp"]="/tmp"
     ["tools"]="$HOME/tools"
-    ["workers"]="$HOME/workers"
+    ["workers"]="$HOME/personal/workers"
     [".pypirc"]="$HOME/.pypirc"
     [".npmrc"]="$HOME/.npmrc"
 )

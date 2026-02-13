@@ -1,4 +1,18 @@
 #!/bin/bash
-cd /home/w3c_offical/projects/cicy
-git add -A
-git commit -m "Automated commit: $(date '+%Y-%m-%d %H:%M:%S')"
+
+DIRS=(
+    "$HOME/personal"
+    "$HOME/tools"
+)
+
+for dir in "${DIRS[@]}"; do
+    if [ -d "$dir/.git" ]; then
+        cd "$dir"
+        if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "auto: $(date '+%Y-%m-%d %H:%M:%S')"
+            git push
+            echo "✅ $(basename $dir): committed and pushed"
+        fi
+    fi
+done
