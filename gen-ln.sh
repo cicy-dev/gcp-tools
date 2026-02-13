@@ -6,7 +6,33 @@ TARGET_DIR="$HOME/projects/0____"
 # 创建目标目录
 mkdir -p "$TARGET_DIR"
 
-# 定义需要链接的目录
+# 第一步：从 ~/personal/ 创建配置文件软链接到 ~/
+echo "📝 Step 1: Creating config file links from ~/personal/"
+declare -A HOME_LINKS=(
+    [".npmrc"]="$HOME/personal/.npmrc"
+    [".pypirc"]="$HOME/personal/.pypirc"
+)
+
+for name in "${!HOME_LINKS[@]}"; do
+    source="${HOME_LINKS[$name]}"
+    target="$HOME/$name"
+    
+    if [ -e "$source" ]; then
+        if [ ! -e "$target" ]; then
+            ln -sf "$source" "$target"
+            echo "  ✅ Created: ~/$name -> $source"
+        else
+            echo "  ℹ️  Exists: ~/$name"
+        fi
+    else
+        echo "  ⚠️  Skipped: $source does not exist"
+    fi
+done
+
+echo ""
+echo "📁 Step 2: Creating links in $TARGET_DIR/"
+
+# 第二步：定义需要链接到 0____/ 的目录
 declare -A LINKS=(
     ["data"]="$HOME/data"
     ["logs"]="$HOME/logs"
@@ -29,12 +55,12 @@ for name in "${!LINKS[@]}"; do
     if [ ! -e "$target" ]; then
         if [ -e "$source" ]; then
             ln -s "$source" "$target"
-            echo "✅ Created: $name -> $source"
+            echo "  ✅ Created: $name -> $source"
         else
-            echo "⚠️  Skipped: $source does not exist"
+            echo "  ⚠️  Skipped: $source does not exist"
         fi
     else
-        echo "ℹ️  Exists: $name"
+        echo "  ℹ️  Exists: $name"
     fi
 done
 
